@@ -53,7 +53,7 @@ app.use(cookieParser());
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
-    secret: process.env.secret,
+    secret: process.env.SESSION_SECRET,
   },
   touchAfter: 24 * 3600, // 24 hours
 });
@@ -65,7 +65,7 @@ store.on("error", function (e) {
 app.use(
   session({
     store,
-    secret:process.env.secret,
+    secret:process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
