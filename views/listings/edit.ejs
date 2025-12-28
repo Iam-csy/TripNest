@@ -1,0 +1,94 @@
+<%- layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+
+  <h1 class="mb-4">Edit Your Listing</h1>
+
+  <div class="card p-4 shadow-sm" style="max-width: 600px;">
+
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT"  enctype="multipart/form-data" >
+
+      <!-- Title -->
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input
+          type="text"
+          name="listing[title]"
+          class="form-control"
+          value="<%= listing.title %>"
+          required
+        >
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea
+          name="listing[description]"
+          class="form-control"
+          required
+        ><%= listing.description %></textarea>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input
+          type="number"
+          name="listing[price]"
+          class="form-control"
+          value="<%= listing.price %>"
+          min="0"
+          required
+        >
+      </div>
+
+      <!-- Country -->
+      <div class="mb-3">
+        <label class="form-label">Country</label>
+        <input
+          type="text"
+          name="listing[country]"
+          class="form-control"
+          value="<%= listing.country %>"
+          required
+        >
+      </div>
+
+      <!-- Location -->
+      <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input
+          type="text"
+          name="listing[location]"
+          class="form-control"
+          value="<%= listing.location %>"
+          required
+        >
+      </div>
+      <div class="mb-3">
+          <img src="<%= listing.image.url %>" class="card-img-top">
+
+      </div>
+
+      <!-- Image -->
+      <div class="mb-3">
+        <label class="form-label">Image URL</label>
+        <input
+          type="file"
+          name="listing[image]"
+          class="form-control"
+          value="<%= listing.image %>"
+        >
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn btn-primary w-100 mt-2">
+        Update Listing
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

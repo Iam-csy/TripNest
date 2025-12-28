@@ -1,0 +1,124 @@
+<%- layout('layouts/boilerplate') %>
+
+<div class="container mt-4">
+
+  <div class="row">
+
+    <!-- LISTING CARD -->
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm">
+        <img src="<%= listing.image.url %>" class="card-img-top">
+
+        <div class="card-body">
+          <h6 class="text-muted">
+            Owner: <%= listing.owner ? listing.owner.username : "Unknown" %>
+          </h6>
+
+          <h5><%= listing.title %></h5>
+          <p><%= listing.description %></p>
+
+          <p class="fw-bold">
+            ₹ <%= listing.price.toLocaleString("en-IN") %>
+          </p>
+
+          <a href="/listings" class="btn btn-primary">Back</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="col-md-6">
+      <ul class="list-group mb-3">
+        <li class="list-group-item"><strong>Location:</strong> <%= listing.location %></li>
+        <li class="list-group-item"><strong>Country:</strong> <%= listing.country %></li>
+      </ul>
+
+      <!-- EDIT / DELETE (LISTING OWNER ONLY) -->
+      <% if (
+        currUser &&
+        listing.owner &&
+        listing.owner._id.equals(currUser._id)
+      ) { %>
+
+        <a href="/listings/<%= listing._id %>/edit"
+           class="btn btn-warning w-100 mb-2">
+          Edit Listing
+        </a>
+
+        <form method="POST"
+              action="/listings/<%= listing._id %>?_method=DELETE">
+          <button class="btn btn-danger w-100">Delete Listing</button>
+        </form>
+
+      <% } %>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <h4>Add Review</h4>
+
+  <% if (currUser) { %>
+    <form action="/listings/<%= listing._id %>/reviews" method="POST">
+      <div class="mb-2">
+        <label>Rating</label>
+        <input type="range" min="1" max="5"
+               name="review[rating]" class="form-range" required>
+      </div>
+
+      <div class="mb-2">
+        <label>Comment</label>
+        <textarea name="review[comment]"
+                  class="form-control" required></textarea>
+      </div>
+
+      <button class="btn btn-dark">Submit</button>
+    </form>
+  <% } else { %>
+    <p><a href="/login">Login</a> to add a review</p>
+  <% } %>
+
+  <hr>
+
+
+  <h4>All Reviews</h4>
+
+  <% if (!listing.reviews || listing.reviews.length === 0) { %>
+    <p>No reviews yet.</p>
+  <% } else { %>
+
+    <div class="row">
+      <% for (let review of listing.reviews) { %>
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <p><strong><%= review.author.username %></strong></p>
+
+              <p><%= review.comment %></p>
+              <strong><%= review.rating %> / 5</strong>
+
+              <% if (
+                currUser &&
+                review.author &&
+                review.author.equals(currUser._id)
+              ) { %>
+
+                <form method="POST"
+                  action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                  <button class="btn btn-sm btn-outline-danger">
+                    Delete
+                  </button>
+                </form>
+
+              <% } %>
+
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+  <% } %>
+
+</div>

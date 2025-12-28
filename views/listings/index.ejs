@@ -1,0 +1,141 @@
+<%- layout('layouts/boilerplate') %>
+
+<style>
+  .filters {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 0;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    margin-top: 2rem;
+  }
+
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    color: #555;
+    min-width: 70px;
+    transition: all 0.2s ease;
+  }
+
+  .filter i {
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .filter p {
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  .filter:hover {
+    color: #000;
+    transform: translateY(-2px);
+  }
+</style>
+
+<div class="filters">
+
+  <div class="filter">
+    <i class="fa-solid fa-fire"></i>
+    <p>Trending</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-bed"></i>
+    <p>Rooms</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-house"></i>
+    <p>Homes</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-water"></i>
+    <p>Lake</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-mountain"></i>
+    <p>Mountain</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-umbrella-beach"></i>
+    <p>Beach</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-city"></i>
+    <p>City</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-tree"></i>
+    <p>Nature</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-hotel"></i>
+    <p>Hotels</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-campground"></i>
+    <p>Camping</p>
+  </div>
+
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
+
+  <% if (allListings.length === 0) { %>
+    <p>No listings available.</p>
+  <% } %>
+
+  <% for (let listing of allListings) { %>
+    <div class="col">
+      <a
+        href="/listings/<%= listing._id %>"
+        class="listing-links"
+        style="text-decoration:none; color:inherit;"
+      >
+        <div
+          class="card listing-card h-100"
+          style="position: relative; overflow: hidden;"
+        >
+
+          <!-- Image -->
+          <img
+            src="<%= listing.image?.url || '/images/default.jpg' %>"
+            class="card-img-top"
+            alt="listing image"
+            style="height: 20rem; object-fit: cover;"
+          >
+
+          <!-- Overlay -->
+          <div
+            class="card-img-overlay d-flex flex-column justify-content-end"
+            style="background: linear-gradient(transparent, rgba(0,0,0,0.8));"
+          >
+            <h5 class="card-title text-white">
+              <%= listing.title %>
+            </h5>
+
+            <p class="card-text text-white">
+              ₹ <%= listing.price.toLocaleString("en-IN") %> / night
+            </p>
+          </div>
+
+        </div>
+      </a>
+    </div>
+  <% } %>
+
+</div>
+<!-- cpp4iPyMgmbtvWCE
+csyadav02002_db_user
+mongodb+srv://csyadav02002_db_user:<db_password>@cluster0.2exss7t.mongodb.net/?appName=Cluster0 -->
