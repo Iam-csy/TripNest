@@ -3,7 +3,6 @@ const { listingSchema, reviewSchema } = require("./schema");
 const Listing = require("./models/listing");
 const Review = require("./models/review");
 
-// ================= LISTING VALIDATION =================
 module.exports.validateListing = (req, res, next) => {
   const { error } = listingSchema.validate(req.body);
   if (error) {
@@ -77,3 +76,5 @@ module.exports.isReviewOwner = async (req, res, next) => {
 
   next();
 };
+
+

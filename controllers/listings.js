@@ -15,8 +15,6 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
-  console.log("🔥 FILE =", req.file);
-  console.log("🔥 BODY =", req.body);
 
   if (!req.file) {
     throw new Error("FILE NOT RECEIVED");
@@ -65,14 +63,13 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.update = async (req, res) => {
   const { id } = req.params;
 
-  // 1️⃣ Update text fields
+
   const listing = await Listing.findByIdAndUpdate(
     id,
     req.body.listing,
     { new: true, runValidators: true }
   );
 
-  // 2️⃣ If a new image is uploaded, update image
   if (req.file) {
     listing.image = {
       url: req.file.path,

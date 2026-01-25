@@ -30,14 +30,7 @@ router.post(
   wrapAsync(listingController.create)
 );
 
-// ================= CREATE =================
-// router.post(
-//   "/",
-//   isLogin,                              // 🔐 auth first
-//   upload.single("listing[image]"),     // 📷 multer
-  
-//   wrapAsync(listingController.create)
-// );
+
 
 
 // ================= SHOW / UPDATE / DELETE =================

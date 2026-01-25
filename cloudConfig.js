@@ -12,7 +12,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "FirstMajorProject",
-    allowed_formats: ["jpeg", "png", "jpg"], // 🔥 underscore is REQUIRED
+    allowed_formats: ["jpeg", "png", "jpg"], 
   },
 });
 
